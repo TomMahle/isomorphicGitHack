@@ -7,8 +7,8 @@ import originalBlogs from "./blogs";
 
 const fs = new FS("fs", { wipe: true });
 const pfs = fs.promises;
-const dir = "/src/";
-const fileName = "blogs.json";
+const dir = "/";
+const fileName = "src/blogs.json";
 function App() {
   const [blogs, setBlogs] = useState([
     ...originalBlogs,
