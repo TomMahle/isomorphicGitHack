@@ -5,28 +5,37 @@ import http from "isomorphic-git/http/web";
 import FS from "@isomorphic-git/lightning-fs";
 import originalBlogs from "./blogs";
 
-const fs = new FS("fs");
+const fs = new FS("fs", { wipe: true });
 const pfs = fs.promises;
 const dir = "/";
-const newFileName = "bonusReadme.md";
+const newFileName = "blogs.json";
+const branch = "origin/blogs";
 function App() {
-  const [blogs, setBlogs] = useState(originalBlogs);
-  useEffect(
-    () =>
-      git
-        .clone({
-          fs,
-          http,
-          dir,
-          corsProxy: "https://cors.isomorphic-git.org",
-          url: "https://github.com/TomMahle/isomorphicGitHack",
-          singleBranch: true,
-          depth: 1
-        })
-        .then(() => console.log("cloned successfully"))
-        .catch(x => console.log(x)),
-    []
-  );
+  const [blogs, setBlogs] = useState([
+    ...originalBlogs,
+    { title: "", body: "" }
+  ]);
+  useEffect(() => {
+    git
+      .clone({
+        fs,
+        http,
+        dir,
+        corsProxy: "https://cors.isomorphic-git.org",
+        url: "https://github.com/TomMahle/isomorphicGitHack",
+        singleBranch: true,
+        depth: 1
+      })
+      .then(() => console.log("cloned successfully"))
+      .catch(x => console.log(x))
+      .then(() => {
+        return git.listBranches({ dir, fs, remote: "origin" });
+      })
+      .then(branches => {
+        console.log(branches);
+        git.checkout({ dir, fs, ref: branch });
+      });
+  }, []);
 
   const makeOnChange = (index, key) => event => {
     event.preventDefault();
@@ -57,10 +66,9 @@ function App() {
           onClick={async () => {
             await pfs.writeFile(
               `${dir}/${newFileName}`,
-              "very short readme",
+              JSON.stringify(blogs),
               "utf8"
             );
-            await git.add({ fs, dir, filepath: newFileName });
             const status = await git.status({
               fs,
               dir,
@@ -76,12 +84,11 @@ function App() {
                 email: "mrtest@example.com"
               }
             });
-            const pushResult = await git.push({
+            await git.push({
               fs,
               http,
               dir,
               remote: "origin",
-              ref: "feature/blogs",
               onAuth: () => ({
                 username: "TomMahle",
                 password: "441643eb35bc900852c3935a764ec2ab478d3fac"
