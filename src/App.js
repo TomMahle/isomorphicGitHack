@@ -7,9 +7,8 @@ import originalBlogs from "./blogs";
 
 const fs = new FS("fs", { wipe: true });
 const pfs = fs.promises;
-const dir = "/";
-const newFileName = "blogs.json";
-const branch = "origin/blogs";
+const dir = "/src/";
+const fileName = "blogs.json";
 function App() {
   const [blogs, setBlogs] = useState([
     ...originalBlogs,
@@ -26,15 +25,7 @@ function App() {
         singleBranch: true,
         depth: 1
       })
-      .then(() => console.log("cloned successfully"))
-      .catch(x => console.log(x))
-      .then(() => {
-        return git.listBranches({ dir, fs, remote: "origin" });
-      })
-      .then(branches => {
-        console.log(branches);
-        git.checkout({ dir, fs, ref: branch });
-      });
+      .then(() => console.log("cloned successfully"));
   }, []);
 
   const makeOnChange = (index, key) => event => {
@@ -64,15 +55,17 @@ function App() {
         })}
         <button
           onClick={async () => {
+            console.log(blogs);
             await pfs.writeFile(
-              `${dir}/${newFileName}`,
+              `${dir}/${fileName}`,
               JSON.stringify(blogs),
               "utf8"
             );
+            await git.add({ fs, dir, filepath: fileName });
             const status = await git.status({
               fs,
               dir,
-              filepath: newFileName
+              filepath: fileName
             });
             console.log("file status: ", status);
             await git.commit({
@@ -91,7 +84,7 @@ function App() {
               remote: "origin",
               onAuth: () => ({
                 username: "TomMahle",
-                password: "441643eb35bc900852c3935a764ec2ab478d3fac"
+                password: "48ba155f3e5effec5c4c51f4294d5d2cec1ad83c"
               }),
               force: true
             });
