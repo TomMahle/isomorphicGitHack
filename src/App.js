@@ -6,36 +6,62 @@ import http from "isomorphic-git/http/web";
 import FS from "@isomorphic-git/lightning-fs";
 
 function App() {
-  console.log(git, FS);
   const fs = new FS("fs");
+  const pfs = fs.promises;
+  const dir = "/";
   git
     .clone({
       fs,
       http,
-      dir: "/tutorial",
+      dir,
       corsProxy: "https://cors.isomorphic-git.org",
-      url: "https://github.com/isomorphic-git/isomorphic-git",
+      url: "https://github.com/TomMahle/isomorphicGitHack",
       singleBranch: true,
       depth: 1
     })
-    .then(x => console.log("success"))
+    .then(() => console.log("cloned successfully"))
     .catch(x => console.log(x));
-
+  const newFileName = "bonusReadme.md";
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          onClick={async () => {
+            await pfs.writeFile(
+              `${dir}/${newFileName}`,
+              "very short readme",
+              "utf8"
+            );
+            await git.add({ fs, dir, filepath: newFileName });
+            const status = await git.status({ fs, dir, filepath: newFileName });
+            console.log("file status: ", status);
+            await git.commit({
+              fs,
+              dir,
+              message: "this just should not work.",
+              author: {
+                name: "Mr. Test",
+                email: "mrtest@example.com"
+              }
+            });
+            const pushResult = await git.push({
+              fs,
+              http,
+              dir,
+              remote: "origin",
+              ref: "master",
+              onAuth: () => ({
+                username: "TomMahle",
+                password: "*censored*"
+              }),
+              force: true
+            });
+            console.log(pushResult);
+          }}
         >
-          Learn React
-        </a>
+          Hack the planet
+        </button>
       </header>
     </div>
   );
