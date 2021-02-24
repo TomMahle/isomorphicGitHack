@@ -44,10 +44,10 @@ const SubmitButton = ({ blog, password }) => {
           await git.commit({
             fs,
             dir,
-            message: "this just should not work.",
+            message: `New Blog Post at ${new Date()}`,
             author: {
-              name: "Mr. Test",
-              email: "mrtest@example.com",
+              name: "Admin",
+              email: "Admnin@tommahle.com",
             },
           });
           await git.push({
