@@ -47,7 +47,7 @@ const SubmitButton = ({ blog, password }) => {
             message: `New Blog Post at ${new Date()}`,
             author: {
               name: "Admin",
-              email: "Admnin@tommahle.com",
+              email: "Admin@tommahle.com",
             },
           });
           await git.push({
