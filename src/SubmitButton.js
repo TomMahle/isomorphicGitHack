@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import git from "isomorphic-git";
 import http from "isomorphic-git/http/web";

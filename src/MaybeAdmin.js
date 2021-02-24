@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import SubmitButton from "./SubmitButton";
-
-const dir = "/";
 
 const MaybeAdmin = () => {
   const [newBlog, setNewBlog] = useState([{ title: "", body: "" }]);
