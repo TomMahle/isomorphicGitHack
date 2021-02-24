@@ -30,7 +30,7 @@ const SubmitButton = ({ blog, password }) => {
       <button
         onClick={async () => {
           await pfs.writeFile(
-            `${dir}/${fileName}`,
+            `${dir}${fileName}`,
             JSON.stringify([blog, ...oldBlogs], null, 4),
             "utf8"
           );
