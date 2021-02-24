@@ -1,1 +1,10 @@
-[[{"title":"","body":""}],{"title":"Alpha Blog","body":"This is the first blog post on this site"}]
+[
+    {
+        "title": "Blog 2",
+        "body": "Blog Harder"
+    },
+    {
+        "title": "Alpha Blog",
+        "body": "This is the first blog post on this site"
+    }
+]
