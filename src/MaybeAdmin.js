@@ -4,6 +4,7 @@ import SubmitButton from "./SubmitButton";
 
 const MaybeAdmin = () => {
   const [newBlog, setNewBlog] = useState({ title: "", body: "" });
+  const [username, setUsername] = useState("TomMahle");
   const [password, setPassword] = useState("");
   if (!window.location.href.includes("admin")) {
     return null;
@@ -35,7 +36,18 @@ const MaybeAdmin = () => {
         />
       </span>
       <span>
-        <label>Password: </label>
+        <label>Github Username: </label>
+        <input
+          value={username}
+          type="username"
+          onChange={(e) => {
+            e.preventDefault();
+            setUsername(e.target.value);
+          }}
+        />
+      </span>
+      <span>
+        <label>Github Password: </label>
         <input
           value={password}
           type="password"
@@ -45,7 +57,7 @@ const MaybeAdmin = () => {
           }}
         />
       </span>
-      <SubmitButton blog={newBlog} password={password} />
+      <SubmitButton blog={newBlog} password={password} username={username} />
     </div>
   );
 };

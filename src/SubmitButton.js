@@ -10,7 +10,7 @@ const pfs = fs.promises;
 const dir = "/";
 const fileName = "src/blogs.json";
 
-const SubmitButton = ({ blog, password }) => {
+const SubmitButton = ({ blog, password, username }) => {
   useEffect(() => {
     git
       .clone({
@@ -56,7 +56,7 @@ const SubmitButton = ({ blog, password }) => {
             dir,
             remote: "origin",
             onAuth: () => ({
-              username: "TomMahle",
+              username: username,
               password: password,
             }),
             force: true,
