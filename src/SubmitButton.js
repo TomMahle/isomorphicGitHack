@@ -61,7 +61,9 @@ const SubmitButton = ({ blog, password }) => {
             }),
             force: true,
           });
-          console.log("pushed successfully");
+          alert(
+            "Pushed successfully! The usage of this alert is an excellent example of state-of-the-art web design!"
+          );
         }}
       >
         Hack the planet
