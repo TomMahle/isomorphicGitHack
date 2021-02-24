@@ -3,7 +3,7 @@ import "./App.css";
 import SubmitButton from "./SubmitButton";
 
 const MaybeAdmin = () => {
-  const [newBlog, setNewBlog] = useState([{ title: "", body: "" }]);
+  const [newBlog, setNewBlog] = useState({ title: "", body: "" });
   const [password, setPassword] = useState("");
   if (!window.location.href.includes("admin")) {
     return null;
@@ -11,7 +11,7 @@ const MaybeAdmin = () => {
 
   const makeOnChange = (key) => (event) => {
     event.preventDefault();
-    const updatedBlog = [...newBlog];
+    const updatedBlog = { ...newBlog };
     updatedBlog[key] = event.target.value;
     setNewBlog(updatedBlog);
   };

@@ -31,7 +31,7 @@ const SubmitButton = ({ blog, password }) => {
         onClick={async () => {
           await pfs.writeFile(
             `${dir}/${fileName}`,
-            JSON.stringify([blog, ...oldBlogs]),
+            JSON.stringify([blog, ...oldBlogs], null, 4),
             "utf8"
           );
           await git.add({ fs, dir, filepath: fileName });
