@@ -3,18 +3,21 @@ import "./App.css";
 import SubmitButton from "./SubmitButton";
 
 const MaybeAdmin = () => {
-  const [newBlog, setNewBlog] = useState({ title: "", body: "" });
-  const [username, setUsername] = useState("TomMahle");
-  const [password, setPassword] = useState("");
+  const [form, setForm] = useState({
+    title: "",
+    body: "",
+    username: "TomMahle",
+    password: "",
+  });
   if (!window.location.href.includes("admin")) {
     return null;
   }
 
   const makeOnChange = (key) => (event) => {
     event.preventDefault();
-    const updatedBlog = { ...newBlog };
-    updatedBlog[key] = event.target.value;
-    setNewBlog(updatedBlog);
+    const updatedForm = { ...form };
+    updatedForm[key] = event.target.value;
+    setForm(updatedForm);
   };
 
   return (
@@ -22,42 +25,32 @@ const MaybeAdmin = () => {
       <span>
         <label>Title: </label>
         <input
-          value={newBlog.title}
+          value={form.title}
           type="text"
           onChange={makeOnChange("title")}
         />
       </span>
       <span>
         <label>Body: </label>
-        <input
-          value={newBlog.body}
-          type="text"
-          onChange={makeOnChange("body")}
-        />
+        <input value={form.body} type="text" onChange={makeOnChange("body")} />
       </span>
       <span>
         <label>Github Username: </label>
         <input
-          value={username}
+          value={form.username}
           type="username"
-          onChange={(e) => {
-            e.preventDefault();
-            setUsername(e.target.value);
-          }}
+          onChange={makeOnChange("username")}
         />
       </span>
       <span>
         <label>Github Password: </label>
         <input
-          value={password}
+          value={form.password}
           type="password"
-          onChange={(e) => {
-            e.preventDefault();
-            setPassword(e.target.value);
-          }}
+          onChange={makeOnChange("password")}
         />
       </span>
-      <SubmitButton blog={newBlog} password={password} username={username} />
+      <SubmitButton form={form} />
     </div>
   );
 };

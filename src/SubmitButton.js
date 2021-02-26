@@ -10,7 +10,8 @@ const pfs = fs.promises;
 const dir = "/";
 const fileName = "src/blogs.json";
 
-const SubmitButton = ({ blog, password, username }) => {
+const SubmitButton = ({ form }) => {
+  const { username, password, ...blog } = form;
   useEffect(() => {
     git
       .clone({
@@ -31,7 +32,7 @@ const SubmitButton = ({ blog, password, username }) => {
         onClick={async () => {
           await pfs.writeFile(
             `${dir}${fileName}`,
-            JSON.stringify([blog, ...oldBlogs], null, 4),
+            JSON.stringify([blog, ...oldBlogs], null, 2),
             "utf8"
           );
           await git.add({ fs, dir, filepath: fileName });
