@@ -1,5 +1,9 @@
 [
   {
+    "title": "Test Blog",
+    "body": "This is a really insightful blog post I wrote while giving a talk"
+  },
+  {
     "title": "What am I looking at here?",
     "body": "Just a normal blog, most likely there's some seperate CMS front-end that talks to a server that writes to a database that stores these blog posts. If an admin can add blog posts there's no way it could be created strictly with 'front-end development'..."
   },
