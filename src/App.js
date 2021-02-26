@@ -6,10 +6,11 @@ import MaybeAdmin from "./MaybeAdmin";
 const App = () => {
   return (
     <div className="App">
+      <p />
       <MaybeAdmin />
       <div className="App-header">
         {blogs.map(({ title, body }, index) => (
-          <div key={index}>
+          <div key={index} className="Blog-post">
             <h1>{title}</h1>
             <p>{body}</p>
           </div>
