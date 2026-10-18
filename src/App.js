@@ -2,11 +2,12 @@ import React from "react";
 import "./App.css";
 import blogs from "./blogs.json";
 import MaybeAdmin from "./MaybeAdmin";
+import { DemoBanner } from "./Disclaimer";
 
 const App = () => {
   return (
     <div className="App">
-      <p />
+      <DemoBanner />
       <MaybeAdmin />
       <div className="App-header">
         {blogs.map(({ title, body }, index) => (
