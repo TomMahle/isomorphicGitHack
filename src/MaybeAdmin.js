@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import SubmitButton from "./SubmitButton";
+import { AdminWarning } from "./Disclaimer";
 
 const MaybeAdmin = () => {
   const [form, setForm] = useState({
@@ -22,6 +23,7 @@ const MaybeAdmin = () => {
 
   return (
     <div className="Admin">
+      <AdminWarning />
       <span>
         <label>Title: </label>
         <input
@@ -43,7 +45,10 @@ const MaybeAdmin = () => {
         />
       </span>
       <span>
-        <label>Github Password: </label>
+        <label>
+          Fine-Grained Github Personal Access Token With Write Access To Just
+          This Repo Like The Disclaimer Said:
+        </label>
         <input
           value={form.password}
           type="password"

@@ -30,3 +30,47 @@
 .Blog-post {
   width: 100%;
 }
+
+.Disclaimer {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 24px;
+  border-radius: 8px;
+  color: #1f1300;
+  line-height: 1.5;
+}
+
+.Disclaimer-banner {
+  padding: 12px 20px;
+  background-color: #fff3c4;
+  border: 2px solid #e0b100;
+  font-size: 18px;
+}
+
+.Disclaimer-warning {
+  padding: 20px 28px;
+  background-color: #ffe3e0;
+  border: 4px solid #c4271a;
+  font-size: 20px;
+  text-align: left;
+}
+
+.Disclaimer-warning h2 {
+  margin: 0 0 12px;
+  color: #8f1a10;
+  font-size: 28px;
+}
+
+.Disclaimer-warning ul {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.Disclaimer-warning li + li {
+  margin-top: 10px;
+}
+
+.Disclaimer code {
+  font-size: 0.9em;
+}
